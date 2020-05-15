@@ -1,1 +1,105 @@
+computeCost.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: Compute the cost of a particular choice of theta
+%               You should set J to the cost.
+
+h_x = X*theta;
+J = (1/(2*m))*sum((h_x - y).^2);
+
+
+% =========================================================================
+
+plotData.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: Plot the training data into a figure using the 
+%               "figure" and "plot" commands. Set the axes labels using
+%               the "xlabel" and "ylabel" commands. Assume the 
+%               population and revenue data have been passed in
+%               as the x and y arguments of this function.
+%
+% Hint: You can use the 'rx' option with plot to have the markers
+%       appear as red crosses. Furthermore, you can make the
+%       markers larger by using plot(..., 'rx', 'MarkerSize', 10);
+
+
+plot(x, y, 'rx', 'MarkerSize', 10);
+ylabel('Profit in $10,000s');
+xlabel('Population of City in 10,000s');
+% ============================================================
+
+
+gradientDescent.m
+% ====================== YOUR CODE HERE ======================
+    % Instructions: Perform a single gradient step on the parameter vector
+    %               theta. 
+    %
+    % Hint: While debugging, it can be useful to print out the values
+    %       of the cost function (computeCost) and gradient here.
+    %
+
+h_x = X*theta;
+
+theta(1) = theta(1) - alpha*(1/m)*sum((h_x - y).*X(:,1));
+theta(2) = theta(2) - alpha*(1/m)*sum((h_x - y).*X(:,2));
+% ============================================================
+
+
+normalEqn.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: Complete the code to compute the closed form solution
+%               to linear regression and put the result in theta.
+%
+
+% ---------------------- Sample Solution ----------------------
+theta = pinv(X'*X)*X'*y;
+% -------------------------------------------------------------
+% ============================================================
+
+
+featureNormalize.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: First, for each feature dimension, compute the mean
+%               of the feature and subtract it from the dataset,
+%               storing the mean value in mu. Next, compute the 
+%               standard deviation of each feature and divide
+%               each feature by it's standard deviation, storing
+%               the standard deviation in sigma. 
+%
+%               Note that X is a matrix where each column is a 
+%               feature and each row is an example. You need 
+%               to perform the normalization separately for 
+%               each feature. 
+%
+% Hint: You might find the 'mean' and 'std' functions useful.
+%       
+
+mu = mean(X);
+sigma = std(X);
+X_norm = (X - mu)./sigma;
+% ============================================================
+
+
+
+computeCostMulti.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: Compute the cost of a particular choice of theta
+%               You should set J to the cost.
+
+h_x = X*theta;
+J = (1/(2*m))*sum((h_x - y).^2);
+% =========================================================================
+
+
+gradientDescentMulti.m
+% ====================== YOUR CODE HERE ======================
+    % Instructions: Perform a single gradient step on the parameter vector
+    %               theta. 
+    %
+    % Hint: While debugging, it can be useful to print out the values
+    %       of the cost function (computeCostMulti) and gradient here.
+    %
+
+theta = theta - alpha*(1/m)*(X'*((X*theta)-y));
+% ============================================================
+
 
