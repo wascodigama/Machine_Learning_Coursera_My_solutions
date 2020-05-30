@@ -1,0 +1,61 @@
+Regularized Linear Regression and Bias v.s. Variance
+
+linearRegCostFunction.m
+h_x = (X*theta); %hypothysis
+J = (1/(2*m))*(sum((h_x - y).^2) + (lambda/(2*m))*sum(theta(2:end).^2)); %linear regression costfunction
+
+% linear regression gradient
+grad(1) = (1/m)*(X(:,1)'*(h_x - y)); %for j=0
+grad(2:end) = (1/m)*((X(:,2:end)'*(h_x - y)) + (lambda/m)*theta(2:end)); %for j >= 1
+
+% =========================================================================
+
+
+learningCurve.m
+%don't try to implement linear regression cost function it will be not gredded either your code correct
+for i = 1:m
+Xtrain = X(1:i,:);
+ytrain = y(1:i);
+theta = trainLinearReg(Xtrain, ytrain, lambda); %as suggested
+error_train(i) = linearRegCostFunction(Xtrain, ytrain, theta, 0); %using already defined function
+error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+end
+% =========================================================================
+
+
+polyFeatures.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: Given a vector X, return a matrix X_poly where the p-th 
+%               column of X contains the values of X to the p-th power.
+%
+% 
+%%either
+%for i = 1:p
+%X_ploy(:,i) = X(:,1).^i;
+%end
+%%or
+X_poly(:,1:p) = X(:,1).^(1:p);
+% =========================================================================
+
+
+validationCurve.m
+%       for i = 1:length(lambda_vec)
+%           lambda = lambda_vec(i);
+%           % Compute train / val errors when training linear 
+%           % regression with regularization parameter lambda
+%           % You should store the result in error_train(i)
+%           % and error_val(i)
+%           ....
+%           
+%       end
+%
+%
+
+m = size(X,1);
+for i = 1:length(lambda_vec)
+lambda = lambda_vec(i);
+theta = trainLinearReg(X, y, lambda);
+error_train(i) = linearRegCostFunction(X, y, theta, 0);
+error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+end
+% =========================================================================
