@@ -1,0 +1,42 @@
+PlotData.m
+pos = find(y==1); neg = find(y==0);
+plot(X(pos, 1), X(pos,2), 'k+', 'LineWidth', 2, 'MarkerSize', 7);
+plot(X(neg, 1), X(neg, 2), 'ko', 'MarkerFaceColor', 'y', 'MarkerSize', 7);
+
+
+sigmoid.m
+g = 1./(1+exp(-z));
+
+
+costFunction.m
+z = X*theta;
+h_x = sigmoid(z); %hypothesis
+J = (1/m)*sum((-y.*log(h_x))-((1-y).*log(1-h_x))); %cost function logistic regression
+
+grad = (1/m)*(X'*(h_x - y)); %gradiant
+% =============================================================
+
+
+predict.m
+threshold = 0.5;
+sig = sigmoid(X*theta);
+p = sig >= threshold;
+% =============================================================
+
+
+costFunctionReg.m
+% ====================== YOUR CODE HERE ======================
+% Instructions: Compute the cost of a particular choice of theta.
+%               You should set J to the cost.
+%               Compute the partial derivatives and set grad to the partial
+%               derivatives of the cost w.r.t. each parameter in theta
+
+z = X*theta;
+h_x = sigmoid(z);
+%lambda =0.001; %for extra exercise
+J = (1/m)*sum(-y.*(log(h_x)) - ((1-y).*log(1 - h_x))) + (lambda/(2*m))*sum(theta(2:end).^2); %simple costFunction + regularized term
+
+grad(1) = (1/m)*(X(:,1)'*(h_x - y)); %for j=0
+grad(2:end) = (1/m)*(X(:,2:end)'*(h_x - y)) + (lambda/m)*theta(2:end); %for j >= 1
+% =============================================================
+
